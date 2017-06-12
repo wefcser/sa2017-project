@@ -1,0 +1,13 @@
+INSERT INTO sct VALUES (1, '140010200', 'Leo', '软件工程', 'sa');
+INSERT INTO sct VALUES (2, '140010201', 'Basil', '计算机应用', 'sm');
+INSERT INTO sct VALUES (3, '140010202', 'Rosy', '信息安全', 'st');
+INSERT INTO sct VALUES (4, '140010203', 'Jewel', '计算机科学', 'sm');
+INSERT INTO sct VALUES (5, '140010204', 'Iggy', '计算机系统', 'sa');
+INSERT INTO sct VALUES (6, '140010205', 'George', '软件工程', 'st');
+INSERT INTO sct VALUES (7, '140010206', 'Samantha', '计算机应用', 'st');
+INSERT INTO sct VALUES (8, '140010207', 'Max', '计算机系', 'sa');
+INSERT INTO sct VALUES (9, '140010208', 'Lucky', '软件工程', 'st');
+INSERT INTO sct VALUES (10, '140010209', 'Mulligan', '计算机科学', 'sc');
+INSERT INTO sct VALUES (11, '140010210', 'Freddy', '信息安全', 'sa');
+INSERT INTO sct VALUES (12, '140010211', 'Lucky', '软件工程', 'sm');
+INSERT INTO sct VALUES (13, '140010212', 'Sly', '计算机应用', 'sc');

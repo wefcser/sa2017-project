@@ -1,5 +1,6 @@
 package scis.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -13,6 +14,7 @@ import scis.rest.JacksonCustomSCDeserializer;
  */
 
 @Entity
+@Table(name = "sct")
 @JsonSerialize(using = JacksonCustomSCSerializer.class)
 @JsonDeserialize(using = JacksonCustomSCDeserializer.class)
 public class SC {
@@ -31,6 +33,11 @@ public class SC {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return this.id == null;
     }
 
     public String getNo() {

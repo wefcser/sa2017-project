@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import scis.repository.SCRepository;
 import scis.model.SC;
@@ -13,6 +14,7 @@ import java.util.Collection;
 /**
  * Created by wangyifei on 2017/6/11.
  */
+@Service
 public class SCServiceImpl implements SCService{
 
     private SCRepository scRepository;
@@ -23,8 +25,8 @@ public class SCServiceImpl implements SCService{
     }
 
     @Override
-    public SC findById(Long id) {
-        return scRepository.findById(id.intValue());
+    public SC findById(int id) {
+        return scRepository.findById(id);
     }
 
     @Override
