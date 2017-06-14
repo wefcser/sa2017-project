@@ -34,7 +34,11 @@ public class JacksonCustomSCSerializer extends StdSerializer<SC> {
         jgen.writeStringField("name", sc.getName());
         jgen.writeStringField("depart", sc.getDepart());
         jgen.writeStringField("course", sc.getCourse());
-
+        if (sc.getGrade() == null ||sc.getGrade().intValue() == 0) {
+            jgen.writeNullField("grade");
+        } else {
+            jgen.writeNumberField("grade", sc.getGrade());
+        }
         jgen.writeEndObject(); // sc
     }
 

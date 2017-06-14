@@ -26,6 +26,7 @@ public class SC {
     private String name;
     private String depart;
     private String course;
+    private Integer grade;
 
     public Integer getId() {
         return id;
@@ -70,5 +71,13 @@ public class SC {
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
     }
 }

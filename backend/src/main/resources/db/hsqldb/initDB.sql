@@ -6,4 +6,5 @@ CREATE TABLE sct (
   name       VARCHAR(30),
   depart     VARCHAR(30),
   course     VARCHAR(30),
+  grade      INTEGER
 );

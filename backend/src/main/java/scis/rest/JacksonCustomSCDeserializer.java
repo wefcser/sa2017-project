@@ -35,7 +35,7 @@ public class JacksonCustomSCDeserializer extends StdDeserializer<SC> {
         String name = node.get("name").asText(null);
         String depart = node.get("depart").asText(null);
         String course = node.get("course").asText(null);
-
+        int scGrade = node.get("grade").asInt();
         if (!(scId == 0)) {
             sc.setId(scId);
         }
@@ -43,6 +43,9 @@ public class JacksonCustomSCDeserializer extends StdDeserializer<SC> {
         sc.setName(name);
         sc.setDepart(depart);
         sc.setCourse(course);
+        if (!(scGrade == 0)) {
+            sc.setGrade(scGrade);
+        }
         return sc;
     }
 }
