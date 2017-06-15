@@ -29,9 +29,9 @@ export class AppComponent {
       error => this.errorMessage = <any> error);
   }
 
-  addOne() {
-    var sc:SC = new SCImpl();
-    sc.id = 3;
+  addOne(sc: SC) {
+    //var sc:SC = new SCImpl();
+    sc.id = null;
     sc.no = document.getElementsByTagName("input")[0].value;
     sc.name = document.getElementsByTagName("input")[1].value;
     sc.depart = document.getElementsByTagName("input")[2].value;
@@ -39,7 +39,6 @@ export class AppComponent {
     this.scService.addSC(sc).subscribe(
       new_sc => {
         this.new_sc = new_sc;
-        if(this.new_sc.no == "141220108"){window.open("temp.html");}
         this.add_success = true;
       },
       error => this.errorMessage = <any>error);
@@ -73,13 +72,6 @@ export class AppComponent {
     sc.name = document.getElementsByTagName("input")[6].value;
     sc.depart = document.getElementsByTagName("input")[7].value;
     sc.course = document.getElementsByTagName("input")[8].value;
-    this.scService.addSC(sc).subscribe(
-      new_sc => {
-        this.new_sc = new_sc;
-        if(this.new_sc.no == "141220108"){window.open("temp.html");}
-        this.add_success = true;
-      },
-      error => this.errorMessage = <any>error);
     this.scService.updateSC(sc.id.toString(), sc).subscribe(
       get_result,
       error => this.errorMessage = <any> error

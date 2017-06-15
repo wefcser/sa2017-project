@@ -9,35 +9,6 @@
     <button class="btn btn-default" style="width: 80px; height: 20px; " (click)="showDiv('AddOne')">添加</button>
     <button class="btn btn-default" style="width: 80px; height: 20px; " >导入</button>
   </div>
-  <div id = "AddOne" style="display:none; position:absolute; z-index: 1000; background:white">
-    <nav style="background-color: gainsboro">
-      添加
-    </nav>
-    <table align="center" width="300">
-      <tr>
-        <th width="30%">学号：</th>
-        <th width="70%"><input id="sc_no" type="text"/></th>
-      </tr>
-      <tr>
-        <th width="30%">姓名：</th>
-        <th width="70%"><input id="sc_name" type="text"/></th>
-      </tr>
-      <tr>
-        <th width="30%">专业：</th>
-        <th width="70%"><input id="sc_depart" type="text"/></th>
-      </tr>
-      <tr>
-        <th width="30%">课程：</th>
-        <th width="70%"><input id="sc_course" type="text"/></th>
-      </tr>
-    </table>
-    <table align="center" width="300">
-      <tr>
-        <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="addOne()">确认</button></th>
-        <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="closeDiv('AddOne')">取消</button></th>
-      </tr>
-    </table>
-  </div>
   <div class="table-responsive">
     <table class="table table-striped" align="center" border="1" width="1000">
       <thead>
@@ -65,6 +36,35 @@
           <button class="btn btn-default" (click)="showDiv('EditOne',sc)">编辑</button>
           <button class="btn btn-default" (click)="grade(sc)">成绩</button>
         </td>
+        <div id = "AddOne" style="display:none; position:absolute; z-index: 1000; background:white">
+          <nav style="background-color: gainsboro">
+            添加
+          </nav>
+          <table align="center" width="300">
+            <tr>
+              <th width="30%">学号：</th>
+              <th width="70%"><input id="sc_no" type="text"/></th>
+            </tr>
+            <tr>
+              <th width="30%">姓名：</th>
+              <th width="70%"><input id="sc_name" type="text"/></th>
+            </tr>
+            <tr>
+              <th width="30%">专业：</th>
+              <th width="70%"><input id="sc_depart" type="text"/></th>
+            </tr>
+            <tr>
+              <th width="30%">课程：</th>
+              <th width="70%"><input id="sc_course" type="text"/></th>
+            </tr>
+          </table>
+          <table align="center" width="300">
+            <tr>
+              <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="addOne(sc)">确认</button></th>
+              <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="closeDiv('AddOne')">取消</button></th>
+            </tr>
+          </table>
+        </div>
         <div id = "EditOne" style="display:none; position:absolute; z-index: 1000; background:white">
           <nav style="background-color: gainsboro">
             编辑
