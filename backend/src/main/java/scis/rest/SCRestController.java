@@ -37,7 +37,7 @@ public class SCRestController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<SC> addSC(@RequestBody @Valid SC sc, BindingResult bindingResult, UriComponentsBuilder ucBuilder){
+    public ResponseEntity<SC> addSC(@RequestBody @Valid SC sc, BindingResult bindingResult){
         System.out.println("-----------------------------post");
         BindingErrorsResponse errors = new BindingErrorsResponse();
         HttpHeaders headers = new HttpHeaders();
@@ -48,7 +48,7 @@ public class SCRestController {
         }
         this.scService.saveSC(sc);
         System.out.println("-----------------------------post"+sc.getNo().toString());
-        //headers.setLocation(ucBuilder.path("/sc/{id}").buildAndExpand(sc.getId()).toUri());
+        //headers.setLocation(ucBuilder.path("").buildAndExpand(sc.getId()).toUri());
         return new ResponseEntity<SC>(sc, headers, HttpStatus.CREATED);
     }
 
@@ -73,6 +73,7 @@ public class SCRestController {
         currentSC.setDepart(sc.getDepart());
         currentSC.setCourse(sc.getCourse());
         currentSC.setGrade(sc.getGrade());
+        System.out.println("-----------------------------put save error");
         this.scService.saveSC(currentSC);
         System.out.println("-----------------------------2put"+currentSC.getNo().toString());
         return new ResponseEntity<SC>(currentSC, HttpStatus.NO_CONTENT);
