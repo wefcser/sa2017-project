@@ -6,7 +6,7 @@
 </div>
 <div class="container">
   <div align="center">
-    <button class="btn btn-default" style="width: 80px; height: 20px; " onclick="showDiv('AddOne')">添加</button>
+    <button class="btn btn-default" style="width: 80px; height: 20px; " (click)="showDiv('AddOne')">添加</button>
     <button class="btn btn-default" style="width: 80px; height: 20px; " >导入</button>
   </div>
   <div id = "AddOne" style="display:none; position:absolute; z-index: 1000; background:white">
@@ -34,7 +34,7 @@
     <table align="center" width="300">
       <tr>
         <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="addOne()">确认</button></th>
-        <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " onclick="closeDiv('AddOne')">取消</button></th>
+        <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="closeDiv('AddOne')">取消</button></th>
       </tr>
     </table>
   </div>
@@ -62,7 +62,7 @@
         <td>{{sc.grade}}</td>
         <td>
           <button class="btn btn-default" (click)="delete(sc)">删除</button>
-          <button class="btn btn-default" onclick="showDiv('EditOne')">编辑</button>
+          <button class="btn btn-default" (click)="showDiv('EditOne',sc)">编辑</button>
           <button class="btn btn-default" (click)="grade(sc)">成绩</button>
         </td>
         <div id = "EditOne" style="display:none; position:absolute; z-index: 1000; background:white">
@@ -72,29 +72,29 @@
           <table align="center" width="300">
             <tr>
               <th width="30%">序号：</th>
-              <th width="70%"><input type="text" value=sc.id/></th>
+              <th width="70%"><input type="text" disabled="true" id="edit_sc_id"/></th>
             </tr>
             <tr>
               <th width="30%">学号：</th>
-              <th width="70%"><input type="text" value="sc.no"/></th>
+              <th width="70%"><input type="text" id="edit_sc_no"/></th>
             </tr>
             <tr>
               <th width="30%">姓名：</th>
-              <th width="70%"><input type="text" value="sc.name"/></th>
+              <th width="70%"><input type="text" id="edit_sc_name"/></th>
             </tr>
             <tr>
               <th width="30%">专业：</th>
-              <th width="70%"><input type="text" value="sc.depart"/></th>
+              <th width="70%"><input type="text" id="edit_sc_depart"/></th>
             </tr>
             <tr>
               <th width="30%">课程：</th>
-              <th width="70%"><input type="text" value="sc.course"/></th>
+              <th width="70%"><input type="text" id="edit_sc_course"/></th>
             </tr>
           </table>
           <table align="center" width="300">
             <tr>
-              <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="addOne(sc)">确认</button></th>
-              <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " onclick="closeDiv('EditOne')">取消</button></th>
+              <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="edit(sc)">确认</button></th>
+              <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="closeDiv('EditOne')">取消</button></th>
             </tr>
           </table>
         </div>
