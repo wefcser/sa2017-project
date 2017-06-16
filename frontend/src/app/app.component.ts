@@ -52,10 +52,16 @@ export class AppComponent {
         this.new_sc = new_sc;
         this.add_success = true;
         this.scService.getPage().subscribe(
-          pages => this.pages = pages,
-          error => this.errorMessage = <any> error);
-        this.scService.getPartSCs(this.pageNo).subscribe(
-          scs => this.scs = scs,
+          pages => {
+            this.pages = pages;
+            if(parseInt(this.pageNo)<this.pages.length) {
+              this.pageNo = this.pages.length.toString();
+              window.open("app.component.html");
+            }
+            this.scService.getPartSCs(this.pageNo).subscribe(
+              scs => this.scs = scs,
+              error => this.errorMessage = <any> error);
+          },
           error => this.errorMessage = <any> error);
       },
       error => this.errorMessage = <any>error);
@@ -72,6 +78,7 @@ export class AppComponent {
   // }
 
   delete(sc: SC) {
+    if(sc.id == null)return;
     this.scService.deleteSC(sc.id.toString()).subscribe(
       response => {
         this.response_status = response;
@@ -126,18 +133,24 @@ export class AppComponent {
   }
 
   grade(sc: SC) {
+    var id:number =parseInt(document.getElementsByTagName("input")[4].value);
+    for(var i=0,n=this.scs.length;i<n;i++){
+      if(this.scs[i].id == id){
+        sc=this.scs[i];
+        break;
+      }
+    }
+    sc.no = document.getElementsByTagName("input")[5].value;
+    sc.name = document.getElementsByTagName("input")[6].value;
+    sc.depart = document.getElementsByTagName("input")[7].value;
+    sc.course = document.getElementsByTagName("input")[8].value;
     var grade1:number = parseInt(document.getElementsByTagName("input")[10].value);
     var grade2:number = parseInt(document.getElementsByTagName("input")[11].value);
     var grade3:number = parseInt(document.getElementsByTagName("input")[12].value);
     var grade4:number = Math.round(grade1*0.1+grade2*0.3+grade3*0.6);
     if(!isNaN(grade1)&&!isNaN(grade2)&&!isNaN(grade3)) sc.grade = grade4;
-    sc.id = parseInt(document.getElementsByTagName("input")[4].value);
-    sc.no = document.getElementsByTagName("input")[5].value;
-    sc.name = document.getElementsByTagName("input")[6].value;
-    sc.depart = document.getElementsByTagName("input")[7].value;
-    sc.course = document.getElementsByTagName("input")[8].value;
     this.scService.updateSC(sc.id.toString(), sc).subscribe(
-      get_result,
+      update_status => get_result,
       error => this.errorMessage = <any> error
     );
     function get_result(update_status) {
@@ -151,6 +164,7 @@ export class AppComponent {
   }
 
   showDiv(id,sc: SC) {
+    if((id == "EditOne"||id == "Grade")&&sc.id == null)return;
     var Idiv = document.getElementById(id);
     Idiv.style.display = "block";
     //以下部分要将弹出层居中显示
@@ -182,6 +196,9 @@ export class AppComponent {
       document.getElementsByTagName("input")[7].value = "";
       document.getElementsByTagName("input")[8].value = "";
       document.getElementsByTagName("input")[9].value = "";
+      document.getElementsByTagName("input")[10].value = "";
+      document.getElementsByTagName("input")[11].value = "";
+      document.getElementsByTagName("input")[12].value = "";
       document.getElementsByTagName("input")[4].value = sc.id.toString();
       document.getElementsByTagName("input")[5].value = sc.no;
       document.getElementsByTagName("input")[6].value = sc.name;

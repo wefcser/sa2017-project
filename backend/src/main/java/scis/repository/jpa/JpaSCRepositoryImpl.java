@@ -54,8 +54,12 @@ public class JpaSCRepositoryImpl implements SCRepository {
         scs.toArray(scsArray);
         Collection<SC> part = new ArrayList<SC>();
         int i=no*10-10;
-        while(i<no*10&&i<size){
-            part.add(scsArray[i]);
+        while(i<no*10){
+            if(i>=size){
+                part.add(new SC());
+            }else {
+                part.add(scsArray[i]);
+            }
             i++;
         }
         return part;

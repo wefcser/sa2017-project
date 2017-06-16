@@ -32,9 +32,11 @@
         <td>{{sc.course}}</td>
         <td>{{sc.grade}}</td>
         <td>
-          <button class="btn btn-default" (click)="delete(sc)">删除</button>
-          <button class="btn btn-default" (click)="showDiv('EditOne',sc)">编辑</button>
-          <button class="btn btn-default" (click)="showDiv('Grade',sc)">成绩</button>
+          <div class="btn-group" align="center">
+            <button class="btn btn-default" (click)="delete(sc)">删除</button>
+            <button class="btn btn-default" (click)="showDiv('EditOne',sc)">编辑</button>
+            <button class="btn btn-default" (click)="showDiv('Grade',sc)">成绩</button>
+          </div>
         </td>
         <div id = "AddOne" style="display:none; position:absolute; z-index: 1000; background:white">
           <nav style="background-color: gainsboro">
