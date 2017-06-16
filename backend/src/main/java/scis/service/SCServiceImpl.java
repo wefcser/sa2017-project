@@ -36,6 +36,12 @@ public class SCServiceImpl implements SCService{
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Collection<SC> findPartSC(int no){
+        return scRepository.findPart(no);
+    }
+
+    @Override
     public void saveSC(SC sc) {
         scRepository.save(sc);
     }

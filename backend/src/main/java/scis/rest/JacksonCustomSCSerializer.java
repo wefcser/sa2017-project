@@ -23,7 +23,6 @@ public class JacksonCustomSCSerializer extends StdSerializer<SC> {
 
     @Override
     public void serialize(SC sc, JsonGenerator jgen, SerializerProvider provider) throws IOException {
-        Format formatter = new SimpleDateFormat("yyyy/MM/dd");
         jgen.writeStartObject(); // sc
         if (sc.getId() == null) {
             jgen.writeNullField("id");

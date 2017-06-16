@@ -6,9 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.TreeSet;
 
+import org.springframework.transaction.annotation.Transactional;
 import scis.model.SC;
 import scis.repository.SCRepository;
 
@@ -28,6 +31,7 @@ public class JpaSCRepositoryImpl implements SCRepository {
     }
 
     @Override
+    @Transactional
     public void save(SC sc) {
         if (sc.getId() == null) {
             this.em.persist(sc);
@@ -43,10 +47,23 @@ public class JpaSCRepositoryImpl implements SCRepository {
     }
 
     @Override
+    public Collection<SC> findPart(int no) throws DataAccessException {
+        Collection<SC> scs=this.em.createQuery("SELECT sc FROM SC sc").getResultList();
+        int size = scs.size();
+        SC[] scsArray = new SC[size];
+        scs.toArray(scsArray);
+        Collection<SC> part = new ArrayList<SC>();
+        int i=no*10-10;
+        while(i<no*10&&i<size){
+            part.add(scsArray[i]);
+            i++;
+        }
+        return part;
+    }
+
+    @Override
+    @Transactional
     public void delete(SC sc) throws DataAccessException {
-        //this.em.remove(this.em.contains(sc) ? sc : this.em.merge(sc));
-        String scId = sc.getId().toString();
-        this.em.createQuery("DELETE FROM SC sc WHERE id=" + scId).executeUpdate();
         if (em.contains(sc)) {
             em.remove(sc);
         }

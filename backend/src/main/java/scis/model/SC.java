@@ -19,13 +19,23 @@ import scis.rest.JacksonCustomSCDeserializer;
 @JsonDeserialize(using = JacksonCustomSCDeserializer.class)
 public class SC {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "no")
     private String no;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "depart")
     private String depart;
+
+    @Column(name = "course")
     private String course;
+
+    @Column(name = "grade")
     private Integer grade;
 
     public Integer getId() {

@@ -10,6 +10,7 @@ import java.util.Collection;
 public interface SCService {
     SC findById(int id);
     Collection<SC> findAllSC();
+    Collection<SC> findPartSC(int no);
     void saveSC(SC sc);
     void deleteSC(SC sc);
 }

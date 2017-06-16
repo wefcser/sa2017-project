@@ -18,7 +18,7 @@
         <th width="15%">姓名</th>
         <th width="20%">专业</th>
         <th width="20%">课程</th>
-        <th width="10%">成绩</th>
+        <th width="10%">总评</th>
         <th width="15%">操作</th>
       </tr>
       </thead>
@@ -34,7 +34,7 @@
         <td>
           <button class="btn btn-default" (click)="delete(sc)">删除</button>
           <button class="btn btn-default" (click)="showDiv('EditOne',sc)">编辑</button>
-          <button class="btn btn-default" (click)="grade(sc)">成绩</button>
+          <button class="btn btn-default" (click)="showDiv('Grade',sc)">成绩</button>
         </td>
         <div id = "AddOne" style="display:none; position:absolute; z-index: 1000; background:white">
           <nav style="background-color: gainsboro">
@@ -90,7 +90,12 @@
               <th width="30%">课程：</th>
               <th width="70%"><input type="text" id="edit_sc_course"/></th>
             </tr>
+            <tr>
+              <th width="30%">总评：</th>
+              <th width="70%"><input type="text" disabled="true" id="edit_sc_grade"/></th>
+            </tr>
           </table>
+          -------------总评通过成绩操作修改-------------
           <table align="center" width="300">
             <tr>
               <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="edit(sc)">确认</button></th>
@@ -98,9 +103,44 @@
             </tr>
           </table>
         </div>
+        <div id = "Grade" style="display:none; position:absolute; z-index: 1000; background:white">
+          <nav style="background-color: gainsboro">
+            BCD成绩
+          </nav>
+          <table align="center" width="300">
+            <tr>
+              <th width="30%">平时：</th>
+              <th width="70%"><input id="grade1" type="text"/></th>
+            </tr>
+            <tr>
+              <th width="30%">大作业：</th>
+              <th width="70%"><input id="grade2" type="text"/></th>
+            </tr>
+            <tr>
+              <th width="30%">期末：</th>
+              <th width="70%"><input id="grade3" type="text"/></th>
+            </tr>
+            <tr>
+              <th width="30%">总评：</th>
+              <th width="70%"><input id="grade4" disabled="true" type="text" value="自动计算"/></th>
+            </tr>
+          </table>
+          <table align="center" width="300">
+            <tr>
+              <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="grade(sc)">确认</button></th>
+              <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="closeDiv('Grade')">取消</button></th>
+            </tr>
+          </table>
+        </div>
       </tr>
       </tbody>
     </table>
+  </div>
+  <div align="center">
+    第{{pageNo}}/{{pages.length}}页
+  </div>
+  <div class="btn-group" align="center">
+      <button *ngFor="let page of pages" (click)="pageChange(page)">{{page.no}}</button>
   </div>
 </div>
 

@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {SCService} from './sc.service';
 import {SC} from './sc';
-import {SCImpl} from './scImpl';
+import {Page} from './page';
 import 'rxjs/Rx';
 import {Router} from '@angular/router';
 import {log} from "util";
@@ -16,30 +16,47 @@ export class AppComponent {
   scs: SC[];
   @Input() sc: SC;
   new_sc: SC;
+  pages: Page[];
+  @Input() page: Page;
   response_status: number;
   add_success: boolean = false;
   delete_success: boolean = false;
 
+  pageNo = '1';
   constructor(private router: Router, private scService: SCService) {
   }
 
   ngOnInit() {
-    this.scService.getSCs().subscribe(
+    this.scService.getPage().subscribe(
+      pages => this.pages = pages,
+      error => this.errorMessage = <any> error);
+    this.scService.getPartSCs(this.pageNo).subscribe(
       scs => this.scs = scs,
       error => this.errorMessage = <any> error);
   }
-
+  pageChange(page: Page){
+    this.scService.getPartSCs(page.no.toString()).subscribe(
+      scs => this.scs = scs,
+      error => this.errorMessage = <any> error);
+    this.pageNo = page.no.toString();
+  }
   addOne(sc: SC) {
-    //var sc:SC = new SCImpl();
     sc.id = null;
     sc.no = document.getElementsByTagName("input")[0].value;
     sc.name = document.getElementsByTagName("input")[1].value;
     sc.depart = document.getElementsByTagName("input")[2].value;
     sc.course = document.getElementsByTagName("input")[3].value;
+    sc.grade = null;
     this.scService.addSC(sc).subscribe(
       new_sc => {
         this.new_sc = new_sc;
         this.add_success = true;
+        this.scService.getPage().subscribe(
+          pages => this.pages = pages,
+          error => this.errorMessage = <any> error);
+        this.scService.getPartSCs(this.pageNo).subscribe(
+          scs => this.scs = scs,
+          error => this.errorMessage = <any> error);
       },
       error => this.errorMessage = <any>error);
     this.closeDiv('AddOne');
@@ -62,11 +79,58 @@ export class AppComponent {
           this.delete_success = true;
           this.sc = <SC>{};
         }
+        this.scService.getPage().subscribe(
+          pages => {
+            this.pages = pages;
+            if(parseInt(this.pageNo)>this.pages.length) {
+              this.pageNo = this.pages.length.toString();
+              window.open("app.component.html");
+            }
+            this.scService.getPartSCs(this.pageNo).subscribe(
+              scs => this.scs = scs,
+              error => this.errorMessage = <any> error
+            );
+          },
+          error => this.errorMessage = <any> error
+          );
       },
       error => this.errorMessage = <any> error);
   }
 
   edit(sc: SC) {
+    var id:number =parseInt(document.getElementsByTagName("input")[4].value);
+    for(var i=0,n=this.scs.length;i<n;i++){
+      if(this.scs[i].id == id){
+        sc=this.scs[i];
+        break;
+      }
+    }
+    sc.no = document.getElementsByTagName("input")[5].value;
+    sc.name = document.getElementsByTagName("input")[6].value;
+    sc.depart = document.getElementsByTagName("input")[7].value;
+    sc.course = document.getElementsByTagName("input")[8].value;
+    var grade = parseInt(document.getElementsByTagName("input")[9].value);
+    if(!isNaN(grade)) sc.grade = grade;
+    this.scService.updateSC(sc.id.toString(), sc).subscribe(
+      update_status => get_result,
+      error => this.errorMessage = <any> error
+    );
+    function get_result(update_status) {
+      if (update_status.status === 204) {
+        return console.log('update success');
+      } else {
+        return console.log('update failed');
+      }
+    }
+    this.closeDiv('EditOne');
+  }
+
+  grade(sc: SC) {
+    var grade1:number = parseInt(document.getElementsByTagName("input")[10].value);
+    var grade2:number = parseInt(document.getElementsByTagName("input")[11].value);
+    var grade3:number = parseInt(document.getElementsByTagName("input")[12].value);
+    var grade4:number = Math.round(grade1*0.1+grade2*0.3+grade3*0.6);
+    if(!isNaN(grade1)&&!isNaN(grade2)&&!isNaN(grade3)) sc.grade = grade4;
     sc.id = parseInt(document.getElementsByTagName("input")[4].value);
     sc.no = document.getElementsByTagName("input")[5].value;
     sc.name = document.getElementsByTagName("input")[6].value;
@@ -83,11 +147,7 @@ export class AppComponent {
         return console.log('update failed');
       }
     }
-    this.closeDiv('EditOne');
-  }
-
-  compute(sc: SC) {
-
+    this.closeDiv('Grade');
   }
 
   showDiv(id,sc: SC) {
@@ -96,18 +156,38 @@ export class AppComponent {
     //以下部分要将弹出层居中显示
     Idiv.style.left=(document.documentElement.clientWidth-Idiv.clientWidth)/2+document.documentElement.scrollLeft+"px";
     Idiv.style.top =(document.documentElement.clientHeight-Idiv.clientHeight)/2+document.documentElement.scrollTop-50+"px";
-    //设置默认内容
+    //设置默认内容//用于传参
     if (id == "EditOne") {
+      document.getElementsByTagName("input")[4].value = "";
+      document.getElementsByTagName("input")[5].value = "";
+      document.getElementsByTagName("input")[6].value = "";
+      document.getElementsByTagName("input")[7].value = "";
+      document.getElementsByTagName("input")[8].value = "";
+      document.getElementsByTagName("input")[9].value = "";
       document.getElementsByTagName("input")[4].value = sc.id.toString();
       document.getElementsByTagName("input")[5].value = sc.no;
       document.getElementsByTagName("input")[6].value = sc.name;
       document.getElementsByTagName("input")[7].value = sc.depart;
       document.getElementsByTagName("input")[8].value = sc.course;
+      if(sc.grade != null)document.getElementsByTagName("input")[9].value = sc.grade.toString();
     }else if(id == "AddOne") {
       document.getElementsByTagName("input")[0].value = null;
       document.getElementsByTagName("input")[1].value = null;
       document.getElementsByTagName("input")[2].value = null;
       document.getElementsByTagName("input")[3].value = null;
+    }else if(id == "Grade") {
+      document.getElementsByTagName("input")[4].value = "";
+      document.getElementsByTagName("input")[5].value = "";
+      document.getElementsByTagName("input")[6].value = "";
+      document.getElementsByTagName("input")[7].value = "";
+      document.getElementsByTagName("input")[8].value = "";
+      document.getElementsByTagName("input")[9].value = "";
+      document.getElementsByTagName("input")[4].value = sc.id.toString();
+      document.getElementsByTagName("input")[5].value = sc.no;
+      document.getElementsByTagName("input")[6].value = sc.name;
+      document.getElementsByTagName("input")[7].value = sc.depart;
+      document.getElementsByTagName("input")[8].value = sc.course;
+      if(sc.grade != null)document.getElementsByTagName("input")[9].value = sc.grade.toString();
     }
     //以下部分使整个页面至灰不可点击
     var procbg = document.createElement("div"); //首先创建一个div
