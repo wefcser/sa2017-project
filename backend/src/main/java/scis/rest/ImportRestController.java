@@ -29,11 +29,10 @@ public class ImportRestController {
     private JobLauncher launcher;
 
     @RequestMapping(value = "" ,method = RequestMethod.GET)
-    public @ResponseBody
-    String upload() {
+    public @ResponseBody String upload() {
         try {
             File file;
-            file = new File("/Users/wangyifei/IdeaProjects/sa2017 project/backend/src/main/resources/students.xlsx");
+            file = new File("students.xlsx");
             FileInputStream input = new FileInputStream(file);
             MultipartFile multipartFile = new MockMultipartFile("file",
                     file.getName(), "text/plain", IOUtils.toByteArray(input));
@@ -46,12 +45,13 @@ public class ImportRestController {
             e.printStackTrace();
             return "Failed to convert xlxs file.";
         }
-        return "redirect:/";
+        return "messege";
     }
 
     @RequestMapping(value = "" ,method = RequestMethod.POST)
-    public @ResponseBody
-    String upload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    public @ResponseBody String upload(@RequestParam("file") MultipartFile file) {
+        System.out.println("-----------------------------import");
+        if(file==null)return "File is null";
         try {
             storageService.store(file);
             launcher.run(job, new JobParametersBuilder()
@@ -65,8 +65,7 @@ public class ImportRestController {
             return "Failed to convert " + file.getOriginalFilename() + "!";
         }
         storageService.delete();
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully imported " + file.getOriginalFilename() + "!");
-        return "redirect:/";
+        String messege="You successfully imported " + file.getOriginalFilename() + "!";
+        return messege;
     }
 }

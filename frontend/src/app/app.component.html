@@ -13,7 +13,7 @@
     <table class="table table-striped" align="center" border="1" width="1000">
       <thead>
       <tr>
-        <th width="10%">序号</th>
+        <th width="10%">编号</th>
         <th width="10%">学号</th>
         <th width="15%">姓名</th>
         <th width="20%">专业</th>
@@ -148,19 +148,25 @@
     <nav style="background-color: gainsboro">
       导入
     </nav>
-    <table align="center" width="300">
-      <tr>
-        <div class="row gap" align="center">
-          <input class="btn btn-default" id="excel_file" type="file" name="filename"  accept="xls"/>
-        </div>
-      </tr>
-    </table>
-    <table align="center" width="300">
-      <tr>
-        <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="import()">确认</button></th>
-        <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="closeDiv('Import')">取消</button></th>
-      </tr>
-    </table>
+    <form enctype="multipart/form-data" method="post" id="excelImportForm">
+      <table align="center" width="300">
+        <tr align="center">
+            <input id="excel_file" type="file"/>
+        </tr>
+        <!--<tr align="center">-->
+          <!--<progress id="progressBar" value="0" max="100">-->
+          <!--</progress>-->
+          <!--<span id="percentage"></span>-->
+        <!--</tr>-->
+      </table>
+      <table align="center" width="300">
+        <tr>
+          <th width="50%"><input type="submit" value="确认" style="width: 80px; height: 20px; " (click)="importFile()"/></th>
+          <!--<th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="importFile()">确认</button></th>-->
+          <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="closeDiv('Import')">取消</button></th>
+        </tr>
+      </table>
+    </form>
   </div>
 </div>
 

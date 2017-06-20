@@ -31,8 +31,13 @@ import {environment} from '../environments/environment';
 export class SCService {
 
   private entity_url = environment.REST_API_URL + 'sc';
+  private import_url = environment.REST_API_URL + 'import';
 
-  constructor(private _http: Http) {
+  constructor(public _http: Http) {
+  }
+
+  getImportUrl(): string{
+    return this.import_url;
   }
 
   getPage(): Observable<Page[]> {

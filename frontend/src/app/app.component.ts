@@ -23,6 +23,8 @@ export class AppComponent {
   delete_success: boolean = false;
 
   pageNo = '1';
+  import_url = this.scService.getImportUrl();
+
   constructor(private router: Router, private scService: SCService) {
   }
 
@@ -68,14 +70,55 @@ export class AppComponent {
     this.closeDiv('AddOne');
   }
 
-  // importFile() {
-  //   // if (this.is_insert) {
-  //   //
-  //   //   this.is_insert = false;
-  //   // } else {
-  //   //   this.is_insert = true;
-  //   // }
-  // }
+  importFile() {
+    var fileObj = document.getElementsByTagName("input")[14].value;
+    //if(fileObj=="")return;
+    var FileController = "http://localhost:8080/scis/api/import";
+    // FormData 对象
+    //var form = new FormData();
+    //var form = new FormData(document.getElementsByTagName("form")[0]);
+
+    // 增加表单数据
+    //form.append("file", fileObj);                           // 文件对象
+
+    // XMLHttpRequest 对象
+    var xhr = new XMLHttpRequest();
+    // xhr.open("post", FileController, false);
+    // xhr.setRequestHeader("content-type","multipart/form-data");
+    // xhr.onload = function () {
+    //   alert("上传完成!");
+    // };
+    // xhr.upload.addEventListener("progress", this.progressFunction, false);
+    // xhr.send(form);
+    xhr.open("get", FileController, false);
+    xhr.send();
+    this.scService.getPage().subscribe(
+      pages => {
+        this.pages = pages;
+        if(parseInt(this.pageNo)<this.pages.length) {
+          this.pageNo = this.pages.length.toString();
+          window.open("app.component.html");
+        }
+        this.scService.getPartSCs(this.pageNo).subscribe(
+          scs => this.scs = scs,
+          error => this.errorMessage = <any> error);
+      },
+      error => this.errorMessage = <any> error);
+    this.closeDiv("Import");
+  }
+
+  progressFunction(evt) {
+    window.open("app.component.html");
+    var progressBar = document.getElementsByTagName("progress")[0];
+    var percentageDiv = document.getElementsByTagName("span")[0];
+    if (evt.lengthComputable) {
+      progressBar.max = evt.total;
+      progressBar.value = evt.loaded;
+      percentageDiv.innerHTML = Math.round(evt.loaded / evt.total * 100) + "%";
+    }
+  }
+
+
 
   delete(sc: SC) {
     if(sc.id == null)return;

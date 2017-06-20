@@ -33,7 +33,7 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public void init() {
         try {
-            System.out.println("-------------------------here");
+            //System.out.println("-------------------------here");
             rootLocation = Paths.get("Storage");
             if(Files.notExists(rootLocation)) {
                 Files.createDirectory(rootLocation);
