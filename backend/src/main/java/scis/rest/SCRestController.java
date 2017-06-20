@@ -86,22 +86,6 @@ public class SCRestController {
         return new ResponseEntity<SC>(sc, headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "／import", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<SC> importSC(@RequestBody String s, BindingResult bindingResult){
-        System.out.println("-----------------------------import");
-        System.out.println(s);
-        BindingErrorsResponse errors = new BindingErrorsResponse();
-        HttpHeaders headers = new HttpHeaders();
-//        if(bindingResult.hasErrors() || (sc == null)){
-            errors.addAllErrors(bindingResult);
-            headers.add("errors", errors.toJSON());
-            return new ResponseEntity<SC>(headers, HttpStatus.BAD_REQUEST);
-//        }
-//        this.scService.saveSC(sc);
-//        //headers.setLocation(ucBuilder.path("").buildAndExpand(sc.getId()).toUri());
-//        return new ResponseEntity<SC>(sc, headers, HttpStatus.CREATED);
-    }
-
     @RequestMapping(value = "/{scId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<SC> updateSC(@PathVariable("scId") int scId, @RequestBody @Valid SC sc, BindingResult bindingResult){
         System.out.println("-----------------------------put");

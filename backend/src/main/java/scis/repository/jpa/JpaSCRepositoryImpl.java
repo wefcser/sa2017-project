@@ -33,6 +33,7 @@ public class JpaSCRepositoryImpl implements SCRepository {
     @Override
     @Transactional
     public void save(SC sc) {
+        //System.out.println("save "+sc.getNo());
         if (sc.getId() == null) {
             this.em.persist(sc);
         } else {

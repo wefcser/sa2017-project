@@ -205,6 +205,8 @@ export class AppComponent {
       document.getElementsByTagName("input")[7].value = sc.depart;
       document.getElementsByTagName("input")[8].value = sc.course;
       if(sc.grade != null)document.getElementsByTagName("input")[9].value = sc.grade.toString();
+    }else if(id == 'Import'){
+      document.getElementsByTagName("input")[14].value = "";
     }
     //以下部分使整个页面至灰不可点击
     var procbg = document.createElement("div"); //首先创建一个div

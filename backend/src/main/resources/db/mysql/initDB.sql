@@ -14,5 +14,6 @@ CREATE TABLE IF NOT EXISTS sct (
   name VARCHAR(30),
   depart VARCHAR(30),
   course VARCHAR(30),
+  grade INT(4)
 ) engine=InnoDB;
 

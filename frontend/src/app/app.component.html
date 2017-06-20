@@ -7,7 +7,7 @@
 <div class="container">
   <div align="center">
     <button class="btn btn-default" style="width: 80px; height: 20px; " (click)="showDiv('AddOne')">添加</button>
-    <button class="btn btn-default" style="width: 80px; height: 20px; " >导入</button>
+    <button class="btn btn-default" style="width: 80px; height: 20px; " (click)="showDiv('Import')">导入</button>
   </div>
   <div class="table-responsive">
     <table class="table table-striped" align="center" border="1" width="1000">
@@ -144,7 +144,24 @@
   <div class="btn-group" align="center">
       <button *ngFor="let page of pages" (click)="pageChange(page)">{{page.no}}</button>
   </div>
-
+  <div id = "Import" style="display:none; position:absolute; z-index: 1000; background:white">
+    <nav style="background-color: gainsboro">
+      导入
+    </nav>
+    <table align="center" width="300">
+      <tr>
+        <div class="row gap" align="center">
+          <input class="btn btn-default" id="excel_file" type="file" name="filename"  accept="xls"/>
+        </div>
+      </tr>
+    </table>
+    <table align="center" width="300">
+      <tr>
+        <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="import()">确认</button></th>
+        <th width="50%"><button class="btn btn-default" style="width: 80px; height: 20px; " (click)="closeDiv('Import')">取消</button></th>
+      </tr>
+    </table>
+  </div>
 </div>
 
 <!--<h2>Here are some links to help you start: </h2>-->
